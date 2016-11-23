@@ -33,22 +33,11 @@
 									<?php p($theme->getName()); ?></h1>
 							</div>
 
-<?php
-if ( strcmp($_SERVER["SERVER_NAME"], "owncloud4elixir.cesnet.cz") !== 0 ) {
-?>
-							<div class="cesnet-logo">
-<?php
-} else {
-?>
-							<div class="elixir-logo">
-<?php
-}
-//							<div class="cesnet-logo">
-?>
-
-								<h1 class="hidden-visually">
-									<?php p($theme->getName()); ?></h1>
-							</div>
+<?php if ( strcmp($_SERVER["SERVER_NAME"], "owncloud4elixir.cesnet.cz") !== 0 ) { ?>
+							<div class="cesnet-logo"></div>
+<?php } else { ?>
+							<div class="elixir-logo"></div>
+<?php } ?>
 							<div id="logo-claim" style="display:none;"><?php p($theme->getLogoClaim()); ?></div>
 						</div>
 					</header>

@@ -11,7 +11,7 @@ class OC_Theme {
 	
 	function __construct() {
 		$this->ThemeName = 'cesnet';
-		$this->l = OC_L10N::get('core');
+		$this->l = \OC::$server->getL10N('core');
 	}
 
 	public function getName() {

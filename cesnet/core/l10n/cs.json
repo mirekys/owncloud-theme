@@ -1,4 +1,5 @@
 { "translations": {
+	"Contact" : "Kontakt",
 	"This service is a part of CESNET <a href=\"http://www.cesnet.cz/services/?lang=en\">e-infrastructure</a>" : "Tato služba je součástí <a href=\"http://www.cesnet.cz/services/?lang=cs\">e-infrastruktury</a> CESNET",
 	"EduID Federated Login" : "Přihlášení přes eduID",
 	"Log-in with your eduID account" : "Přihlaste se svým eduID účtem",

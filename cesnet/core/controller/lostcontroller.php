@@ -4,10 +4,11 @@
  * @author Björn Schießle <schiessle@owncloud.com>
  * @author Lukas Reschke <lukas@owncloud.com>
  * @author Morris Jobke <hey@morrisjobke.de>
+ * @author Roeland Jago Douma <rullzer@owncloud.com>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  * @author Victor Dubiniuk <dubiniuk@owncloud.com>
  *
- * @copyright Copyright (c) 2015, ownCloud, Inc.
+ * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @license AGPL-3.0
  *
  * This code is free software: you can redistribute it and/or modify
@@ -24,7 +25,7 @@
  *
  */
 
-namespace OC\Core\LostPassword\Controller;
+namespace OC\Core\Controller;
 
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http\TemplateResponse;
@@ -44,7 +45,7 @@ use OCP\Security\StringUtils;
  *
  * Successfully changing a password will emit the post_passwordReset hook.
  *
- * @package OC\Core\LostPassword\Controller
+ * @package OC\Core\Controller
  */
 class LostController extends Controller {
 
@@ -121,8 +122,8 @@ class LostController extends Controller {
 	 */
 	public function resetform($token, $userId) {
 		return new TemplateResponse(
-			'core/lostpassword',
-			'resetpassword',
+			'core',
+			'lostpassword/resetpassword',
 			array(
 				'link' => $this->urlGenerator->linkToRouteAbsolute('core.lost.setPassword', array('userId' => $userId, 'token' => $token)),
 			),
@@ -217,17 +218,16 @@ class LostController extends Controller {
 			throw new \Exception($this->l10n->t('Couldn\'t send reset email. Please make sure your username is correct.'));
 		}
 
-		$email = $this->config->getUserValue($user, 'settings', 'email');
+		$userObject = $this->userManager->get($user);
+		$email = $userObject->getEMailAddress();
 
 		if (empty($email)) {
 			throw new \Exception(
-				$this->l10n->t('Couldn\'t send reset email because there is no '.
-					'email address for this username. Please ' .
-					'contact your administrator.')
+				$this->l10n->t('Could not send reset email because there is no email address for this username. Please contact your administrator.')
 			);
 		}
 
-		$token = $this->secureRandom->getMediumStrengthGenerator()->generate(21,
+		$token = $this->secureRandom->generate(21,
 			ISecureRandom::CHAR_DIGITS.
 			ISecureRandom::CHAR_LOWER.
 			ISecureRandom::CHAR_UPPER);
@@ -235,7 +235,7 @@ class LostController extends Controller {
 
 		$link = $this->urlGenerator->linkToRouteAbsolute('core.lost.resetform', array('userId' => $user, 'token' => $token));
 
-		$tmpl = new \OC_Template('core/lostpassword', 'email');
+		$tmpl = new \OC_Template('core', 'lostpassword/email');
 		$tmpl->assign('link', $link);
 		$msg = $tmpl->fetchPage();
 

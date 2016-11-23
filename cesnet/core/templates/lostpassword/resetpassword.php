@@ -6,7 +6,7 @@
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Victor Dubiniuk <dubiniuk@owncloud.com>
  *
- * @copyright Copyright (c) 2015, ownCloud, Inc.
+ * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @license AGPL-3.0
  *
  * This code is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
  */
-style('lostpassword', 'resetpassword');
+style('core', 'lostpassword/resetpassword');
 script('core', 'lostpassword');
 ?>
 
@@ -30,7 +30,7 @@ script('core', 'lostpassword');
 	<fieldset>
 		<p>
 			<label for="password" class="infield"><?php p($l->t('New password')); ?></label>
-			<input type="password" autocomplete="off" name="password" id="password" value="" placeholder="<?php p($l->t('New Password')); ?>" required />
+			<input type="password" name="password" id="password" autocomplete="off" value="" placeholder="<?php p($l->t('New Password')); ?>" required />
 		</p>
 		<input type="submit" id="submit" value="<?php p($l->t('Reset password')); ?>" />
 		<p class="text-center">
