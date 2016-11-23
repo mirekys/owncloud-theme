@@ -15,7 +15,6 @@ You may need to copy the following directories to the owncloud root directory,
 as they doesn't seem to be picked by ownCloud from inside a theme:
 
 ```
-cesnet/apps/files_pdfviewer
-cesnet/core/ajax
+cesnet/apps/files_sharing
 cesnet/lib
 ```
