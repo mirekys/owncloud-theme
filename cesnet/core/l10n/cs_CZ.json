@@ -1,5 +1,7 @@
 { "translations": {
 	"Contact" : "Kontakt",
+	"Couldn't reset password because the token is expired." : "Heslo nebylo změněno z důvodu vypršení platnosti odkazu.",
+	"You can request a new password reset link from your Personal settings page." : "O zaslání nového odkazu pro reset hesla můžete požádat na stránce s Osobním nastavením.",
 	"This service is a part of CESNET <a href=\"http://www.cesnet.cz/services/?lang=en\">e-infrastructure</a>" : "Tato služba je součástí <a href=\"http://www.cesnet.cz/services/?lang=cs\">e-infrastruktury</a> CESNET",
 	"EduID Federated Login" : "Přihlášení přes eduID",
 	"Log-in with your eduID account" : "Přihlaste se svým eduID účtem",

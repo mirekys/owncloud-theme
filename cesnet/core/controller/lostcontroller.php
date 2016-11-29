@@ -182,15 +182,18 @@ class LostController extends Controller {
 
 			$splittedToken = explode(':', $this->config->getUserValue($userId, 'owncloud', 'lostpassword', null));
 			if(count($splittedToken) !== 2) {
-				throw new \Exception($this->l10n->t('Couldn\'t reset password because the token is invalid'));
+				throw new \Exception($this->l10n->t('Couldn\'t reset password because the token is invalid'). ' '
+					. $this->l10n->t('You can request a new password reset link from your Personal settings page.'));
 			}
 
 			if ($splittedToken[0] < ($this->timeFactory->getTime() - 60*60*12)) {
-				throw new \Exception($this->l10n->t('Couldn\'t reset password because the token is expired'));
+				throw new \Exception($this->l10n->t('Couldn\'t reset password because the token is expired.'). ' '
+					. $this->l10n->t('You can request a new password reset link from your Personal settings page.'));
 			}
 
 			if (!StringUtils::equals($splittedToken[1], $token)) {
-				throw new \Exception($this->l10n->t('Couldn\'t reset password because the token is invalid'));
+				throw new \Exception($this->l10n->t('Couldn\'t reset password because the token is invalid'). ' '
+					. $this->l10n->t('You can request a new password reset link from your Personal settings page.'));
 			}
 
 			if (!$user->setPassword($password)) {
@@ -218,7 +221,16 @@ class LostController extends Controller {
 			throw new \Exception($this->l10n->t('Couldn\'t send reset email. Please make sure your username is correct.'));
 		}
 
+		$currentUser = \OC::$server->getUserSession()->getUser()->getUID();
+		$currentUserObject = $this->userManager->get($currentUser);
 		$userObject = $this->userManager->get($user);
+
+		if ($currentUserObject !== $userObject) {
+			throw new \Exception(
+				$this->l10n->t('You cannot reset a password for another user')
+			);
+		}
+
 		$email = $userObject->getEMailAddress();
 
 		if (empty($email)) {
