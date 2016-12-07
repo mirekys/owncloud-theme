@@ -16,5 +16,6 @@ as they doesn't seem to be picked by ownCloud from inside a theme:
 
 ```
 cesnet/apps/files_sharing
+cesnet/core/ajax
 cesnet/lib
 ```
